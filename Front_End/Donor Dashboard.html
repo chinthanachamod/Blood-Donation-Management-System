@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard | Blood Donation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .card {
+            overflow: hidden;
+            transition: transform 0.8s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="bg-danger text-white text-center py-5">
+    <h1>Blood Donation Management System</h1>
+    <p>"Give blood, save lives! Your donation makes a difference."</p>
+</section>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">Donor Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Donations</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="container mt-4">
+    <div class="row">
+        <!-- Donor Registration Form -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Blood Donor Registration</h5>
+                    <form id="donorForm">
+                        <div class="mb-3">
+                            <label for="donorName" class="form-label">Donor Name</label>
+                            <input type="text" class="form-control" id="donorName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="donorAge" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="donorAge" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bloodGroup" class="form-label">Blood Group</label>
+                            <select class="form-select" id="bloodGroup" required>
+                                <option value="">Select</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <div>
+                                <input type="radio" name="gender" value="Male" checked> Male
+                                <input type="radio" name="gender" value="Female"> Female
+                                <input type="radio" name="gender" value="Other"> Other
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactNumber" class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" id="contactNumber" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="district" class="form-label">Select District</label>
+                            <select class="form-select" id="district" required>
+                                <option value="">Select</option>
+                                <option value="Ampara">Ampara</option>
+                                <option value="Anuradhapura">Anuradhapura</option>
+                                <option value="Badulla">Badulla</option>
+                                <option value="Batticaloa">Batticaloa</option>
+                                <option value="Colombo">Colombo</option>
+                                <option value="Galle">Galle</option>
+                                <option value="Gampaha">Gampaha</option>
+                                <option value="Hambantota">Hambantota</option>
+                                <option value="Jaffna">Jaffna</option>
+                                <option value="Kalutara">Kalutara</option>
+                                <option value="Kandy">Kandy</option>
+                                <option value="Kegalle">Kegalle</option>
+                                <option value="Kilinochchi">Kilinochchi</option>
+                                <option value="Kurunegala">Kurunegala</option>
+                                <option value="Mannar">Mannar</option>
+                                <option value="Matale">Matale</option>
+                                <option value="Matara">Matara</option>
+                                <option value="Monaragala">Monaragala</option>
+                                <option value="Mullaitivu">Mullaitivu</option>
+                                <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                <option value="Polonnaruwa">Polonnaruwa</option>
+                                <option value="Puttalam">Puttalam</option>
+                                <option value="Ratnapura">Ratnapura</option>
+                                <option value="Trincomalee">Trincomalee</option>
+                                <option value="Vavuniya">Vavuniya</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="homeAddress" class="form-label">Home Address</label>
+                            <input type="text" class="form-control" id="homeAddress" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hospitalName" class="form-label">Select Hospital</label>
+                            <input type="text" class="form-control" id="hospitalName" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="lastDonationDate" class="form-label">Date of last blood donation</label>
+                            <input type="date" class="form-control" id="lastDonationDate" required>
+                        </div>
+                        <br>
+
+                        <button type="submit" class="btn btn-danger">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Donor Instructions -->
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Blood Donation Guidelines</h5>
+                    <ul>
+                        <li><strong>Eligibility:</strong> Donors must be in good health, at least 18 years old, and weigh over 50kg.</li>
+                        <li><strong>Before Donation:</strong> Eat a healthy meal, stay hydrated, and avoid alcohol 24 hours before donation.</li>
+                        <li><strong>During Donation:</strong> Remain calm, follow staff instructions, and report any discomfort.</li>
+                        <li><strong>After Donation:</strong> Drink plenty of fluids, avoid heavy exercise for 24 hours, and monitor for any side effects.</li>
+                        <li><strong>Donation Frequency:</strong> Males can donate every 3 months, females every 4 months.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+        <p>&copy; 2025 Blood Donation Management System. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("donorForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        alert("Donor registration submitted successfully!");
+    });
+</script>
+</body>
+</html>

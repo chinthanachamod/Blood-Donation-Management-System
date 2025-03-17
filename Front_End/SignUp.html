@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Blood Donation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            background: url('images/SignUp_SignIn_Background.jpg') no-repeat center center fixed; /* Replace with your image URL */
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align the form to the right */
+        }
+
+        .register-container {
+            max-width: 500px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.6); /* Reduced opacity */
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s forwards ease-out;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h3 {
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: #000000;
+        }
+
+        .btn-primary {
+            background-color: #ff6347;
+            border-color: #ff6347;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff4500;
+            border-color: #ff4500;
+        }
+
+        p {
+            text-align: center;
+            color: #000000;
+        }
+
+        p a {
+            color: #ff6347;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="register-container">
+        <h3>Create an Account</h3>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Register As</label>
+                <select class="form-select" id="role">
+                    <option value="donor">Donor</option>
+                    <option value="patient">Patient</option>
+                    <option value="hospital">Hospital</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Create a password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+        <p class="text-center mt-3">Already have an account? <a href="SignIn.html">Login</a></p>
+    </div>
+</div>
+</body>
+</html>
