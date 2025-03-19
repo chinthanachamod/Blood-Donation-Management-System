@@ -1,9 +1,7 @@
 package org.example.backend.service.impl;
 
-
-
 import org.example.backend.dto.UserDTO;
-import org.example.backend.entitiy.User;
+import org.example.backend.entity.User;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.UserService;
 import org.example.backend.util.VarList;
@@ -65,7 +63,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         } else {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            userDTO.setRole("USER");
             userRepository.save(modelMapper.map(userDTO, User.class));
             return VarList.Created;
         }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,5 +88,45 @@
         <p class="text-center mt-3">Don't have an account? <a href="SignUp.html">Create an account</a></p>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            let email = $('#email').val();
+            let password = $('#password').val();
+
+            $.ajax({
+                url: "http://localhost:8080/api/v1/user/login",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    email: email,
+                    password: password
+                }),
+                success: function (response) {
+                    console.log("Login successful", response);
+                    alert("Login successful");
+                    localStorage.setItem("token", response.data.token);
+                    if (response.data.role === "ADMIN") {
+                        window.location.href = "../Front_End/Hospital Dashboard.html"; // Change to actual dashboard page
+                    } else if (response.data.role === "PATIENT") {
+                        window.location.href = "../Front_End/Patient Dashboard.html"; // Change to actual dashboard page
+                    } else if (response.data.role === "DONOR") {
+                        window.location.href = "../Front_End/Donor Dashboard.html"; // Change to actual dashboard page
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Login failed", xhr.responseText);
+                    alert("Login failed: " + xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
 </body>
 </html>
+
+

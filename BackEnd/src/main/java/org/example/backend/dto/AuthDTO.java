@@ -1,23 +1,25 @@
 package org.example.backend.dto;
 
+import org.example.backend.entity.Role;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class AuthDTO {
 
     private String email;
     private String token;
+    private Role role;
 
-    // Default constructor
-    public AuthDTO() {}
-
-    // Parameterized constructor
-    public AuthDTO(String email, String token) {
-        this.email = email;
-        this.token = token;
+    public AuthDTO() {
     }
 
-    // Getters and Setters
+    public AuthDTO(String email, String token, Role role) {
+        this.email = email;
+        this.token = token;
+        this.role = role;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -34,12 +36,20 @@ public class AuthDTO {
         this.token = token;
     }
 
-    // Override toString() for better representation
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "AuthDTO{" +
                 "email='" + email + '\'' +
                 ", token='" + token + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package org.example.backend.controller;
 
 
-
 import org.example.backend.dto.AuthDTO;
 import org.example.backend.dto.ResponseDTO;
 import org.example.backend.dto.UserDTO;

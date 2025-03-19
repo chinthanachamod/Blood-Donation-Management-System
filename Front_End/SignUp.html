@@ -88,7 +88,6 @@
                 <select class="form-select" id="role">
                     <option value="donor">Donor</option>
                     <option value="patient">Patient</option>
-                    <option value="hospital">Hospital</option>
                 </select>
             </div>
             <div class="mb-3">
@@ -100,5 +99,72 @@
         <p class="text-center mt-3">Already have an account? <a href="SignIn.html">Login</a></p>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#registerForm").submit(function (event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            // Get form values
+            let fullName = $("#name").val().trim();
+            let email = $("#email").val().trim();
+            let role = $("#role").val();
+            let password = $("#password").val().trim();
+
+            // Basic validation
+            if (fullName === "" || email === "" || password === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Email validation
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Password validation (minimum 6 characters)
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return;
+            }
+
+            // Prepare user data
+            let userData = {
+                fullName: fullName,
+                email: email,
+                role: role,
+                password: password
+            };
+
+            // Send AJAX request to backend API
+            $.ajax({
+                url: "http://localhost:8080/api/v1/user/register", // Replace with your backend URL
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(userData),
+                success: function (response) {
+                    if (response.code === "201") { // Check if user is created
+                        localStorage.setItem("token", response.data); // Store JWT token
+                        alert("Registration successful! Redirecting to login.");
+                        window.location.href = "SignIn.html";
+                    } else {
+                        alert("Unexpected response from server.");
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 406) {
+                        alert("Email already in use. Please use a different email.");
+                    } else if (xhr.status === 500) {
+                        alert("Server error: " + xhr.responseJSON.message);
+                    } else {
+                        alert("An unexpected error occurred. Please try again.");
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -35,13 +35,11 @@ public class WebSecurityConfig {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -50,6 +48,7 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/api/v1/auth/authenticate",
                                 "/api/v1/user/register",
+                                "/api/v1/user/login",
                                 "/api/v1/auth/refreshToken",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
