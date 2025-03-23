@@ -148,7 +148,7 @@
                     if (response.code === "201") { // Check if user is created
                         localStorage.setItem("token", response.data); // Store JWT token
                         alert("Registration successful! Redirecting to login.");
-                        window.location.href = "SignIn.html";
+                        window.location.href = "../Front_End/SignIn.html";
                     } else {
                         alert("Unexpected response from server.");
                     }
