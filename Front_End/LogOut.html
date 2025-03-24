@@ -30,30 +30,54 @@
             font-weight: 700;
         }
 
-        .btn-primary {
+        .btn-logout {
             background-color: #ff6347;
             border-color: #ff6347;
+            width: 120px;
         }
 
-        .btn-primary:hover {
+        .btn-logout:hover {
             background-color: #ff4500;
             border-color: #ff4500;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            width: 120px;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
     </style>
 </head>
 <body>
 <div class="logout-container">
     <h3>Are you sure you want to log out?</h3>
-    <button id="logoutBtn" class="btn btn-primary mt-3">Logout</button>
+    <div class="btn-container mt-3">
+        <button id="logoutBtn" class="btn btn-logout">Logout</button>
+        <button id="cancelBtn" class="btn btn-cancel">Cancel</button>
+    </div>
 </div>
 
 <script>
     $(document).ready(function () {
         $("#logoutBtn").click(function () {
-            // Clear stored token
             localStorage.removeItem("token");
             alert("You have been logged out successfully.");
             window.location.href = "SignIn.html";
+        });
+
+        $("#cancelBtn").click(function () {
+            window.history.back(); // Navigate back to the previous page
         });
     });
 </script>
