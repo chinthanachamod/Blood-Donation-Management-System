@@ -7,9 +7,10 @@ import jakarta.persistence.*;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)     // ensures auto-incrementing primary keys.
     private Long id;
 
+    // @Column(nullable = false) - constraints ensure required fields.
     @Column(name = "patient_name", nullable = false)
     private String patientName;
 

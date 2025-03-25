@@ -48,6 +48,20 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public List<PatientDTO> getPatientsByContactNumber(String contactNumber) {
+        return patientRepository.findByContactNumber(contactNumber).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientDTO> getPatientsByPatientName(String patientName) {
+        return patientRepository.findByPatientName(patientName).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<PatientDTO> getPatientsByBloodGroup(String bloodGroup) {
         return patientRepository.findByBloodGroup(bloodGroup).stream()
                 .map(this::mapToDTO)
@@ -64,6 +78,13 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDTO> getPatientsByHospital(String hospitalName) {
         return patientRepository.findByHospitalName(hospitalName).stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientDTO> getPatientsByEmail(String email) {
+        return patientRepository.findByEmail(email).stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }

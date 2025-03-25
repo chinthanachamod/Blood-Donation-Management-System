@@ -9,11 +9,19 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    List<Patient> findByBloodGroup(String bloodGroup);
 
-    List<Patient> findByDistrict(String district);
+    List<Patient> findByContactNumber(String contactNumber);  // Find patients by contact number.
 
-    List<Patient> findByHospitalName(String hospitalName);
+    List<Patient> findByPatientName(String patientName);  // Find patients by name.
 
-    Patient findByEmail(String email);
+    List<Patient> findByBloodGroup(String bloodGroup);  // Find patients by blood group.
+
+    List<Patient> findByDistrict(String district);      // Find patients by district.
+
+    List<Patient> findByHospitalName(String hospitalName);      // Find patients associated with a specific hospital.
+
+    //Patient findByEmail(String email);  // Retrieve a patient by email.
+
+    List<Patient> findByEmail(String email);  // Retrieve a patient by email.
+
 }
