@@ -1,47 +1,23 @@
-package org.example.backend.entity;
+package org.example.backend.dto;
 
-import jakarta.persistence.*;
+public class PatientDTO {
 
-@Entity
-@Table(name = "patients")
-public class Patient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "patient_name", nullable = false)
     private String patientName;
-
-    @Column(name = "age", nullable = false)
     private int age;
-
-    @Column(name = "blood_group", nullable = false)
     private String bloodGroup;
-
-    @Column(name = "gender", nullable = false)
     private String gender;
-
-    @Column(name = "contact_number", nullable = false, unique = true)
     private String contactNumber;
-
-    @Column(name = "district", nullable = false)
     private String district;
-
-    @Column(name = "hospital_name", nullable = false)
     private String hospitalName;
-
-    @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-    @Column(name = "home_address", nullable = false)
     private String homeAddress;
 
-    public Patient() {
+    public PatientDTO() {
     }
 
-    public Patient(Long id, String patientName, int age, String bloodGroup, String gender, String contactNumber,
-                   String district, String hospitalName, String email, String homeAddress) {
+    public PatientDTO(Long id, String patientName, int age, String bloodGroup, String gender, String contactNumber,
+                      String district, String hospitalName, String email, String homeAddress) {
         this.id = id;
         this.patientName = patientName;
         this.age = age;
@@ -140,7 +116,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "PatientDTO{" +
                 "id=" + id +
                 ", patientName='" + patientName + '\'' +
                 ", age=" + age +
