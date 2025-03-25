@@ -182,5 +182,155 @@
         alert("Donor registration submitted successfully!");
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const BASE_URL = "http://localhost:8080/api/v1/donors";
+
+    // Get All Donors
+    const getAllDonors = () => {
+        $.ajax({
+            url: `${BASE_URL}/getAll`,
+            type: "GET",
+            success: (resp) => {
+                let tableBody = $("#donor_table_body");
+                tableBody.empty();
+                resp.forEach((donor) => {
+                    let row = `<tr>
+                                    <td>${donor.id}</td>
+                                    <td>${donor.donorName}</td>
+                                    <td>${donor.age}</td>
+                                    <td>${donor.bloodGroup}</td>
+                                    <td>${donor.contactNumber}</td>
+                                    <td>${donor.email}</td>
+                                    <td>${donor.hospitalName}</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm" onclick="editDonor(${donor.id})">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteDonor(${donor.id})">Delete</button>
+                                    </td>
+                               </tr>`;
+                    tableBody.append(row);
+                });
+            },
+            error: (err) => {
+                console.error("Error fetching donors: ", err);
+            }
+        });
+    };
+
+    // Register Donor
+    $("#donorForm").submit((event) => {
+        event.preventDefault();
+
+        let donor = {
+            donorName: $("#donorName").val(),
+            age: $("#donorAge").val(),
+            bloodGroup: $("#bloodGroup").val(),
+            gender: $("input[name='gender']:checked").val(),
+            contactNumber: $("#contactNumber").val(),
+            district: $("#district").val(),
+            email: $("#email").val(),
+            homeAddress: $("#homeAddress").val(),
+            hospitalName: $("#hospitalName").val(),
+            lastDonationDate: $("#lastDonationDate").val()
+        };
+
+        $.ajax({
+            url: `${BASE_URL}/register`,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(donor),
+            success: () => {
+                alert("Donor registered successfully.");
+                getAllDonors();
+                $("#donorForm")[0].reset();
+            },
+            error: (err) => {
+                console.error("Error registering donor: ", err);
+                alert("Failed to register donor.");
+            }
+        });
+    });
+
+    // Edit Donor (Fetch Donor Data for Update)
+    const editDonor = (id) => {
+        $.ajax({
+            url: `${BASE_URL}/${id}`,
+            type: "GET",
+            success: (donor) => {
+                $("#donorName").val(donor.donorName);
+                $("#donorAge").val(donor.age);
+                $("#bloodGroup").val(donor.bloodGroup);
+                $(`input[name='gender'][value='${donor.gender}']`).prop("checked", true);
+                $("#contactNumber").val(donor.contactNumber);
+                $("#district").val(donor.district);
+                $("#email").val(donor.email);
+                $("#homeAddress").val(donor.homeAddress);
+                $("#hospitalName").val(donor.hospitalName);
+                $("#lastDonationDate").val(donor.lastDonationDate);
+                $("#donorId").val(donor.id); // Hidden field for donor ID
+            },
+            error: (err) => {
+                console.error("Error fetching donor data: ", err);
+            }
+        });
+    };
+
+    // Update Donor
+    $("#btn_update_donor").click(() => {
+        let donorId = $("#donorId").val();
+        let donor = {
+            id: donorId,
+            donorName: $("#donorName").val(),
+            age: $("#donorAge").val(),
+            bloodGroup: $("#bloodGroup").val(),
+            gender: $("input[name='gender']:checked").val(),
+            contactNumber: $("#contactNumber").val(),
+            district: $("#district").val(),
+            email: $("#email").val(),
+            homeAddress: $("#homeAddress").val(),
+            hospitalName: $("#hospitalName").val(),
+            lastDonationDate: $("#lastDonationDate").val()
+        };
+
+        $.ajax({
+            url: `${BASE_URL}/${donorId}`,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(donor),
+            success: () => {
+                alert("Donor updated successfully.");
+                getAllDonors();
+                $("#donorForm")[0].reset();
+            },
+            error: (err) => {
+                console.error("Error updating donor: ", err);
+                alert("Failed to update donor.");
+            }
+        });
+    });
+
+    // Delete Donor
+    const deleteDonor = (id) => {
+        if (confirm("Are you sure you want to delete this donor?")) {
+            $.ajax({
+                url: `${BASE_URL}/${id}`,
+                type: "DELETE",
+                success: () => {
+                    alert("Donor deleted successfully.");
+                    getAllDonors();
+                },
+                error: (err) => {
+                    console.error("Error deleting donor: ", err);
+                    alert("Failed to delete donor.");
+                }
+            });
+        }
+    };
+
+    // Initial load of donors
+    getAllDonors();
+</script>
+
 </body>
 </html>
