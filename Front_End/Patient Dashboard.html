@@ -400,5 +400,159 @@
         }
     });
 </script>-->
+<script>
+    const BASE_URL = "http://localhost:8080/api/v1/patients";
+
+    // Get All Patients
+    const getAllPatients = () => {
+        $.ajax({
+            url: `${BASE_URL}/getAll`,
+            type: "GET",
+            success: (resp) => {
+                let tableBody = $("#patient_table_body");
+                tableBody.empty();
+                resp.forEach((patient) => {
+                    let row = `<tr>
+                                    <td>${patient.id}</td>
+                                    <td>${patient.patientName}</td>
+                                    <td>${patient.age}</td>
+                                    <td>${patient.bloodGroup}</td>
+                                    <td>${patient.gender}</td>
+                                    <td>${patient.contactNumber}</td>
+                                    <td>${patient.district}</td>
+                                    <td>${patient.hospitalName}</td>
+                                    <td>${patient.email}</td>
+                                    <td>${patient.homeAddress}</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm" onclick="editPatient(${patient.id})">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deletePatient(${patient.id})">Delete</button>
+                                    </td>
+                               </tr>`;
+                    tableBody.append(row);
+                });
+            },
+            error: (err) => {
+                console.error("Error fetching patients: ", err);
+            }
+        });
+    };
+
+    // Register Patient
+    $("#patientForm").submit((event) => {
+        event.preventDefault();
+
+        let patient = {
+            patientName: $("#patientName").val(),
+            age: $("#patientAge").val(),
+            bloodGroup: $("#bloodGroup").val(),
+            gender: $("input[name='gender']:checked").val(),
+            contactNumber: $("#contactNumber").val(),
+            district: $("#district").val(),
+            email: $("#email").val(),
+            homeAddress: $("#homeAddress").val(),
+            hospitalName: $("#hospitalName").val(),
+            requiredPints: $("#requiredPints").val(),
+            urgencyLevel: $("#urgencyLevel").val()
+        };
+
+        $.ajax({
+            url: `${BASE_URL}/register`,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(patient),
+            success: () => {
+                alert("Patient registered successfully.");
+                getAllPatients();
+                $("#patientForm")[0].reset();
+            },
+            error: (err) => {
+                console.error("Error registering patient: ", err);
+                alert("Failed to register patient.");
+            }
+        });
+    });
+
+    // Edit Patient (Fetch Patient Data for Update)
+    const editPatient = (id) => {
+        $.ajax({
+            url: `${BASE_URL}/${id}`,
+            type: "GET",
+            success: (patient) => {
+                $("#patientName").val(patient.patientName);
+                $("#patientAge").val(patient.age);
+                $("#bloodGroup").val(patient.bloodGroup);
+                $(`input[name='gender'][value='${patient.gender}']`).prop("checked", true);
+                $("#contactNumber").val(patient.contactNumber);
+                $("#district").val(patient.district);
+                $("#email").val(patient.email);
+                $("#homeAddress").val(patient.homeAddress);
+                $("#hospitalName").val(patient.hospitalName);
+                $("#requiredPints").val(patient.requiredPints);
+                $("#urgencyLevel").val(patient.urgencyLevel);
+                $("#patientId").val(patient.id); // Hidden field for patient ID
+            },
+            error: (err) => {
+                console.error("Error fetching patient data: ", err);
+            }
+        });
+    };
+
+    // Update Patient
+    $("#btn_update_patient").click(() => {
+        let patientId = $("#patientId").val();
+        let patient = {
+            id: patientId,
+            patientName: $("#patientName").val(),
+            age: $("#patientAge").val(),
+            bloodGroup: $("#bloodGroup").val(),
+            gender: $("input[name='gender']:checked").val(),
+            contactNumber: $("#contactNumber").val(),
+            district: $("#district").val(),
+            email: $("#email").val(),
+            homeAddress: $("#homeAddress").val(),
+            hospitalName: $("#hospitalName").val(),
+            requiredPints: $("#requiredPints").val(),
+            urgencyLevel: $("#urgencyLevel").val()
+        };
+
+        $.ajax({
+            url: `${BASE_URL}/${patientId}`,
+            type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(patient),
+            success: () => {
+                alert("Patient updated successfully.");
+                getAllPatients();
+                $("#patientForm")[0].reset();
+            },
+            error: (err) => {
+                console.error("Error updating patient: ", err);
+                alert("Failed to update patient.");
+            }
+        });
+    });
+
+    // Delete Patient
+    const deletePatient = (id) => {
+        if (confirm("Are you sure you want to delete this patient?")) {
+            $.ajax({
+                url: `${BASE_URL}/${id}`,
+                type: "DELETE",
+                success: () => {
+                    alert("Patient deleted successfully.");
+                    getAllPatients();
+                },
+                error: (err) => {
+                    console.error("Error deleting patient: ", err);
+                    alert("Failed to delete patient.");
+                }
+            });
+        }
+    };
+
+    // Initial load of patients
+    getAllPatients();
+</script>
+
 </body>
 </html>

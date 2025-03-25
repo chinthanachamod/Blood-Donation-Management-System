@@ -50,6 +50,7 @@ public class WebSecurityConfig {
                                 "/api/v1/user/register",
                                 "/api/v1/user/login",
                                 "/api/v1/donors/**",
+                                "/api/v1/patients/**",
                                 "/api/v1/auth/refreshToken",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
