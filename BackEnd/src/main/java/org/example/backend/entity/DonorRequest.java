@@ -1,6 +1,7 @@
 package org.example.backend.entity;
 
 import jakarta.persistence.*;
+import org.example.backend.enums.RequestStatus;
 
 public class DonorRequest {
 
