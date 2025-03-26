@@ -451,8 +451,7 @@
             email: $("#email").val(),
             homeAddress: $("#homeAddress").val(),
             hospitalName: $("#hospitalName").val(),
-            requiredPints: $("#requiredPints").val(),
-            urgencyLevel: $("#urgencyLevel").val()
+
         };
 
         $.ajax({
@@ -461,7 +460,7 @@
             contentType: "application/json",
             data: JSON.stringify(patient),
             success: () => {
-                alert("Patient registered successfully.");
+                alert("Patient registered successfully...!");
                 getAllPatients();
                 $("#patientForm")[0].reset();
             },
