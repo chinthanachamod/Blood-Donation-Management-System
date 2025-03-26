@@ -1,26 +1,29 @@
 package org.example.backend.dto;
 
+import org.example.backend.enums.RequestStatus;
+
 public class DonorRequestDTO {
     private Long id;
     private String donorName;
     private String bloodGroup;
-    private String contact;
-    private String hospital;
-    private String status;
+    private String contactNumber;
+    private String hospitalName;
+    private RequestStatus status;
 
     public DonorRequestDTO() {
     }
 
-    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contact, String hospital, String status) {
+    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contactNumber, String hospitalName, RequestStatus status) {
         this.id = id;
         this.donorName = donorName;
         this.bloodGroup = bloodGroup;
-        this.contact = contact;
-        this.hospital = hospital;
+        this.contactNumber = contactNumber;
+        this.hospitalName = hospitalName;
         this.status = status;
     }
 
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
@@ -45,27 +48,27 @@ public class DonorRequestDTO {
         this.bloodGroup = bloodGroup;
     }
 
-    public String getContact() {
-        return contact;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
-    public String getHospital() {
-        return hospital;
+    public String getHospitalName() {
+        return hospitalName;
     }
 
-    public void setHospital(String hospital) {
-        this.hospital = hospital;
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
-    public String getStatus() {
+    public RequestStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(RequestStatus status) {
         this.status = status;
     }
 
@@ -77,9 +80,9 @@ public class DonorRequestDTO {
                 "id=" + id +
                 ", donorName='" + donorName + '\'' +
                 ", bloodGroup='" + bloodGroup + '\'' +
-                ", contact='" + contact + '\'' +
-                ", hospital='" + hospital + '\'' +
-                ", status='" + status + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", hospitalName='" + hospitalName + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
