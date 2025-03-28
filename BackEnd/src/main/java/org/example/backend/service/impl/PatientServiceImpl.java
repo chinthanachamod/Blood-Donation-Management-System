@@ -28,6 +28,8 @@ public class PatientServiceImpl implements PatientService {
         patient.setHospitalName(patientDTO.getHospitalName());
         patient.setEmail(patientDTO.getEmail());
         patient.setHomeAddress(patientDTO.getHomeAddress());
+        patient.setRequiredPints(patientDTO.getRequiredPints());
+        patient.setUrgencyLevel(patientDTO.getUrgencyLevel());
 
         Patient savedPatient = patientRepository.save(patient);
         return mapToDTO(savedPatient);
@@ -54,33 +56,6 @@ public class PatientServiceImpl implements PatientService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<PatientDTO> getPatientsByPatientName(String patientName) {      // Finds patients by Patient Name.
-        return patientRepository.findByPatientName(patientName).stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PatientDTO> getPatientsByBloodGroup(String bloodGroup) {        // Finds patients by blood group.
-        return patientRepository.findByBloodGroup(bloodGroup).stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PatientDTO> getPatientsByDistrict(String district) {        // Finds patients by district.
-        return patientRepository.findByDistrict(district).stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PatientDTO> getPatientsByHospital(String hospitalName) {        // Finds patients by hospital name.
-        return patientRepository.findByHospitalName(hospitalName).stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public List<PatientDTO> getPatientsByEmail(String email) {      // Finds patients by email.
@@ -106,7 +81,9 @@ public class PatientServiceImpl implements PatientService {
                 patient.getDistrict(),
                 patient.getHospitalName(),
                 patient.getEmail(),
-                patient.getHomeAddress()
+                patient.getHomeAddress(),
+                patient.getRequiredPints(),
+                patient.getUrgencyLevel()
         );
     }
 }

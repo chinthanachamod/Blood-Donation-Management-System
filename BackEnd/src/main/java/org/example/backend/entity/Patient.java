@@ -38,11 +38,18 @@ public class Patient {
     @Column(name = "home_address", nullable = false)
     private String homeAddress;
 
+    @Column(name = "required_pints", nullable = false)
+    private int requiredPints;  // New property
+
+    @Column(name = "urgency_level", nullable = false)
+    private String urgencyLevel; // New property (e.g., High, Medium, Low)
+
     public Patient() {
     }
 
     public Patient(Long id, String patientName, int age, String bloodGroup, String gender, String contactNumber,
-                   String district, String hospitalName, String email, String homeAddress) {
+                   String district, String hospitalName, String email, String homeAddress,
+                   int requiredPints, String urgencyLevel) {
         this.id = id;
         this.patientName = patientName;
         this.age = age;
@@ -53,9 +60,11 @@ public class Patient {
         this.hospitalName = hospitalName;
         this.email = email;
         this.homeAddress = homeAddress;
+        this.requiredPints = requiredPints;
+        this.urgencyLevel = urgencyLevel;
     }
 
-    // Getters and Setters
+    // Getters and setters...
 
     public Long getId() {
         return id;
@@ -137,7 +146,23 @@ public class Patient {
         this.homeAddress = homeAddress;
     }
 
-    // toString
+    public int getRequiredPints() {
+        return requiredPints;
+    }
+
+    public void setRequiredPints(int requiredPints) {
+        this.requiredPints = requiredPints;
+    }
+
+    public String getUrgencyLevel() {
+        return urgencyLevel;
+    }
+
+    public void setUrgencyLevel(String urgencyLevel) {
+        this.urgencyLevel = urgencyLevel;
+    }
+
+    // toString()
 
     @Override
     public String toString() {
@@ -152,6 +177,8 @@ public class Patient {
                 ", hospitalName='" + hospitalName + '\'' +
                 ", email='" + email + '\'' +
                 ", homeAddress='" + homeAddress + '\'' +
+                ", requiredPints=" + requiredPints +
+                ", urgencyLevel='" + urgencyLevel + '\'' +
                 '}';
     }
 }

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class DonorRequestServiceImpl implements DonorRequestService {
 
-    @Autowired
+/*    @Autowired
     private DonorRequestRepository donorRequestRepository;
 
     @Override
@@ -23,10 +23,10 @@ public class DonorRequestServiceImpl implements DonorRequestService {
         donorRequest.setBloodGroup(donorRequestDTO.getBloodGroup());
         donorRequest.setContact(donorRequestDTO.getContact());
         donorRequest.setHospital(donorRequestDTO.getHospital());
-        donorRequest.setStatus("Pending"); // Default status
+        donorRequest.setStatus("Pending");
 
-        donorRequest = donorRequestRepository.save(donorRequest);
-        return mapToDTO(donorRequest);
+        DonorRequest savedRequest = donorRequestRepository.save(donorRequest);
+        return mapToDTO(savedRequest);
     }
 
     @Override
@@ -36,12 +36,20 @@ public class DonorRequestServiceImpl implements DonorRequestService {
     }
 
     @Override
+    public DonorRequestDTO getDonorRequestById(Long id) {
+        DonorRequest donorRequest = donorRequestRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Donor Request not found"));
+        return mapToDTO(donorRequest);
+    }
+
+    @Override
     public DonorRequestDTO updateDonorRequestStatus(Long id, String status) {
         DonorRequest donorRequest = donorRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Donor Request not found"));
+
         donorRequest.setStatus(status);
-        donorRequest = donorRequestRepository.save(donorRequest);
-        return mapToDTO(donorRequest);
+        DonorRequest updatedRequest = donorRequestRepository.save(donorRequest);
+        return mapToDTO(updatedRequest);
     }
 
     @Override
@@ -58,5 +66,5 @@ public class DonorRequestServiceImpl implements DonorRequestService {
                 donorRequest.getHospital(),
                 donorRequest.getStatus()
         );
-    }
+    }*/
 }

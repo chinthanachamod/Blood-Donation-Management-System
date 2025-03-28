@@ -12,12 +12,15 @@ public class PatientDTO {
     private String hospitalName;
     private String email;
     private String homeAddress;
+    private int requiredPints;  // New property
+    private String urgencyLevel; // New property (e.g., High, Medium, Low)
 
     public PatientDTO() {
     }
 
-    public PatientDTO(Long id, String patientName, int age, String bloodGroup, String gender, String contactNumber,
-                      String district, String hospitalName, String email, String homeAddress) {
+    public PatientDTO(Long id, String patientName, int age, String bloodGroup, String gender,
+                      String contactNumber, String district, String hospitalName, String email,
+                      String homeAddress, int requiredPints, String urgencyLevel) {
         this.id = id;
         this.patientName = patientName;
         this.age = age;
@@ -28,6 +31,8 @@ public class PatientDTO {
         this.hospitalName = hospitalName;
         this.email = email;
         this.homeAddress = homeAddress;
+        this.requiredPints = requiredPints;
+        this.urgencyLevel = urgencyLevel;
     }
 
     // Getters and Setters
@@ -112,7 +117,23 @@ public class PatientDTO {
         this.homeAddress = homeAddress;
     }
 
-    // toString
+    public int getRequiredPints() {
+        return requiredPints;
+    }
+
+    public void setRequiredPints(int requiredPints) {
+        this.requiredPints = requiredPints;
+    }
+
+    public String getUrgencyLevel() {
+        return urgencyLevel;
+    }
+
+    public void setUrgencyLevel(String urgencyLevel) {
+        this.urgencyLevel = urgencyLevel;
+    }
+
+    // toString()
 
     @Override
     public String toString() {
@@ -127,6 +148,8 @@ public class PatientDTO {
                 ", hospitalName='" + hospitalName + '\'' +
                 ", email='" + email + '\'' +
                 ", homeAddress='" + homeAddress + '\'' +
+                ", requiredPints=" + requiredPints +
+                ", urgencyLevel='" + urgencyLevel + '\'' +
                 '}';
     }
 }

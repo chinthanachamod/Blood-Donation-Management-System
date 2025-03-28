@@ -167,6 +167,24 @@
                             <input type="text" class="form-control" id="homeAddress" required>
                         </div>
 
+                        <!-- Required Pints Field -->
+                        <div class="mb-3">
+                            <label for="requiredPints" class="form-label">Required Pints</label>
+                            <input type="number" class="form-control" id="requiredPints" min="1" max="5" required>
+                        </div>
+
+                        <!-- Urgency Level Selection -->
+                        <div class="mb-3">
+                            <label for="urgencyLevel" class="form-label">Urgency Level</label>
+                            <select class="form-select" id="urgencyLevel" required>
+                                <option value="">Select Urgency</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                        <br><br>
+
                         <button type="submit" class="btn btn-danger">Submit Request</button>
                     </form>
                 </div>
@@ -451,7 +469,8 @@
             email: $("#email").val(),
             homeAddress: $("#homeAddress").val(),
             hospitalName: $("#hospitalName").val(),
-
+            requiredPints: $("#requiredPints").val(),
+            urgencyLevel: $("#urgencyLevel").val(),
         };
 
         $.ajax({

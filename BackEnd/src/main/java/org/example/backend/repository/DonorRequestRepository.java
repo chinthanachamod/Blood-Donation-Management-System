@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DonorRequestRepository extends JpaRepository<DonorRequest, Long> {
-
+public interface DonorRequestRepository /*extends JpaRepository<DonorRequest, Long>*/ {
+/*
     // Get donor requests by status
     List<DonorRequest> findByStatus(RequestStatus status);
 
@@ -18,5 +18,5 @@ public interface DonorRequestRepository extends JpaRepository<DonorRequest, Long
     List<DonorRequest> findByDonorName(String donorName);
 
     // Get donor requests by contact
-    List<DonorRequest> findByContact(String contact);
+    List<DonorRequest> findByContact(String contact);*/
 }
