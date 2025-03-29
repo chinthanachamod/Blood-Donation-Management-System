@@ -128,9 +128,16 @@
                             <label for="homeAddress" class="form-label">Home Address</label>
                             <input type="text" class="form-control" id="homeAddress" required>
                         </div>
-                        <div class="mb-3">
+                        <!--<div class="mb-3">
                             <label for="hospitalName" class="form-label">Select Hospital</label>
                             <input type="text" class="form-control" id="hospitalName" required>
+                        </div>-->
+                        <!-- Hospital Selection -->
+                        <div class="mb-3">
+                            <label for="hospitalName" class="form-label">Hospital Name</label>
+                            <select class="form-select" id="hospitalName" required>
+                                <option value="">Select Hospital</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -180,6 +187,63 @@
     document.getElementById("donorForm").addEventListener("submit", function(event) {
         event.preventDefault();
         alert("Donor registration submitted successfully!");
+    });
+</script>
+
+<script>
+    // Mapping of districts to their respective hospitals
+    const hospitalsByDistrict = {
+        "Colombo": ["Colombo National Hospital", "Nawaloka Hospital", "Asiri Central Hospital", "Base Hospital Colombo"],
+        "Kandy": ["Kandy Teaching Hospital", "Peradeniya Hospital", "Base Hospital Kandy", "Pallekele Base Hospital"],
+        "Galle": ["Karapitiya Teaching Hospital", "Mahinda Rajapaksa Hospital", "Base Hospital Galle"],
+        "Jaffna": ["Jaffna Teaching Hospital", "Base Hospital Jaffna", "Base Hospital Point Pedro"],
+        "Gampaha": ["Gampaha District General Hospital", "Wathupitiwala Base Hospital", "Base Hospital Gampaha"],
+        "Kurunegala": ["Kurunegala Teaching Hospital", "Polgahawela District Hospital", "Base Hospital Kurunegala"],
+        "Anuradhapura": ["Anuradhapura Teaching Hospital", "Base Hospital Anuradhapura"],
+        "Badulla": ["Badulla General Hospital", "Base Hospital Badulla"],
+        "Batticaloa": ["Batticaloa General Hospital", "Base Hospital Batticaloa"],
+        "Matara": ["Matara General Hospital", "Base Hospital Matara"],
+        "Nuwara Eliya": ["Nuwara Eliya General Hospital", "Base Hospital Nuwara Eliya"],
+        "Ratnapura": ["Ratnapura General Hospital"],
+        "Trincomalee": ["Trincomalee General Hospital"],
+        "Vavuniya": ["Vavuniya District Hospital"],
+        "Mannar": ["Base Hospital Mannar"],
+        "Kilinochchi": ["Kilinochchi District General Hospital", "Base Hospital Kilinochchi"],
+        "Polonnaruwa": ["Polonnaruwa General Hospital", "Base Hospital Polonnaruwa"],
+        "Matale": ["Matale General Hospital", "Base Hospital Matale"],
+        "Mullaitivu": ["Mullaitivu District General Hospital", "Base Hospital Mullaitivu"],
+        "Puttalam": ["Puttalam General Hospital", "Base Hospital Puttalam"],
+        "Monaragala": ["Monaragala General Hospital", "Base Hospital Monaragala"],
+        "Hambantota": ["Hambantota General Hospital"],
+        "Kegalle": ["Kegalle General Hospital"],
+        "Kalutara": ["Kalutara General Hospital", "Base Hospital Panadura"],
+        "Mahiyanganaya": ["Mahiyanganaya District Hospital"],
+        "Ampara": ["Base Hospital Ampara"]
+    };
+
+
+
+    document.getElementById("district").addEventListener("change", function () {
+        const district = this.value;
+        const hospitalSelect = document.getElementById("hospitalName");
+
+        // Clear existing options
+        hospitalSelect.innerHTML = '<option value="">Select Hospital</option>';
+
+        // If the district has hospitals, add them to the dropdown
+        if (district in hospitalsByDistrict) {
+            hospitalsByDistrict[district].forEach(hospital => {
+                let option = document.createElement("option");
+                option.value = hospital;
+                option.textContent = hospital;
+                hospitalSelect.appendChild(option);
+            });
+        }
+    });
+
+    document.getElementById("patientForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        alert("Blood request submitted successfully!");
     });
 </script>
 

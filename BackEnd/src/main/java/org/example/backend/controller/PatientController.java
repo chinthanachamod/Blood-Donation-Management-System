@@ -3,6 +3,7 @@ package org.example.backend.controller;
 import org.example.backend.dto.PatientDTO;
 import org.example.backend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class PatientController {
 
     // http://localhost:8080/api/v1/patients/register
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PatientDTO> registerPatient(@RequestBody PatientDTO patientDTO) {
         PatientDTO savedPatient = patientService.registerPatient(patientDTO);
         System.out.println("PatientDTO saved");
