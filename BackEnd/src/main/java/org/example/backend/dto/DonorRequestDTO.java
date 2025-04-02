@@ -2,24 +2,30 @@ package org.example.backend.dto;
 
 import org.example.backend.enums.RequestStatus;
 
+import java.time.LocalDateTime;
+
 public class DonorRequestDTO {
+
     private Long id;
     private String donorName;
     private String bloodGroup;
-    private String contactNumber;
+    private String contact;
     private String hospitalName;
     private RequestStatus status;
+    private LocalDateTime requestDate;
 
     public DonorRequestDTO() {
     }
 
-    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contactNumber, String hospitalName, RequestStatus status) {
+    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contact, String hospitalName,
+                           RequestStatus status, LocalDateTime requestDate) {
         this.id = id;
         this.donorName = donorName;
         this.bloodGroup = bloodGroup;
-        this.contactNumber = contactNumber;
+        this.contact = contact;
         this.hospitalName = hospitalName;
         this.status = status;
+        this.requestDate = requestDate;
     }
 
     // Getters and Setters
@@ -48,12 +54,12 @@ public class DonorRequestDTO {
         this.bloodGroup = bloodGroup;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public String getContact() {
+        return contact;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getHospitalName() {
@@ -72,7 +78,15 @@ public class DonorRequestDTO {
         this.status = status;
     }
 
-    // toString()
+    public LocalDateTime getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    // toString
 
     @Override
     public String toString() {
@@ -80,9 +94,10 @@ public class DonorRequestDTO {
                 "id=" + id +
                 ", donorName='" + donorName + '\'' +
                 ", bloodGroup='" + bloodGroup + '\'' +
-                ", contactNumber='" + contactNumber + '\'' +
+                ", contact='" + contact + '\'' +
                 ", hospitalName='" + hospitalName + '\'' +
                 ", status=" + status +
+                ", requestDate=" + requestDate +
                 '}';
     }
 }

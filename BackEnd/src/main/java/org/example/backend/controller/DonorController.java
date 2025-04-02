@@ -20,6 +20,9 @@ public class DonorController {
     // Register a new donor
     @PostMapping("/register")
     public ResponseEntity<DonorDTO> registerDonor(@RequestBody DonorDTO donorDTO) {
+
+        System.out.println("controller >> age :"+ donorDTO.getDonorAge());
+
         DonorDTO savedDonor = donorService.registerDonor(donorDTO);
         return new ResponseEntity<>(savedDonor, HttpStatus.CREATED);
 

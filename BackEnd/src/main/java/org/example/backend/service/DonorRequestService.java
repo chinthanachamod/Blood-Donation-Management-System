@@ -1,13 +1,24 @@
 package org.example.backend.service;
 
 import org.example.backend.dto.DonorRequestDTO;
+import org.example.backend.enums.RequestStatus;
 
 import java.util.List;
 
 public interface DonorRequestService {
-   /* DonorRequestDTO createDonorRequest(DonorRequestDTO donorRequestDTO);
-    List<DonorRequestDTO> getAllDonorRequests();
-    DonorRequestDTO getDonorRequestById(Long id);
-    DonorRequestDTO updateDonorRequestStatus(Long id, String status);
-    void deleteDonorRequest(Long id);*/
+
+    // Submit a new donor request
+    DonorRequestDTO submitDonorRequest(DonorRequestDTO donorRequestDTO);
+
+    // Fetch all donor requests by status
+    List<DonorRequestDTO> getAllDonorRequestsByStatus(RequestStatus status);
+
+    // Fetch all donor requests for a specific hospital
+    List<DonorRequestDTO> getAllDonorRequestsByHospital(String hospitalName);
+
+    // Accept a donor request
+    DonorRequestDTO acceptDonorRequest(Long requestId);
+
+    // Reject a donor request (simply remove it from the system)
+    void rejectDonorRequest(Long requestId);
 }

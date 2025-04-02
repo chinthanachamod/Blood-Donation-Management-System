@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class  AdminController {
     @GetMapping("/test1")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String check(){
-        return "passed~!1";
-    }
-
+    public String check() { return "passed~!1"; }
     @GetMapping("/test2")
     @PreAuthorize("hasAuthority('USER')")
     public String checks(){

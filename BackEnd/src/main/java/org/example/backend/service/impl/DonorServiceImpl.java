@@ -2,12 +2,16 @@ package org.example.backend.service.impl;
 
 import org.example.backend.dto.DonorDTO;
 import org.example.backend.entity.Donor;
+import org.example.backend.entity.DonorRequest;
+import org.example.backend.enums.RequestStatus;
 import org.example.backend.repository.DonorRepository;
+import org.example.backend.repository.DonorRequestRepository;
 import org.example.backend.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +22,9 @@ public class DonorServiceImpl implements DonorService {
 
     @Autowired
     private DonorRepository donorRepository;
+
+    @Autowired
+    private DonorRequestRepository donorRequestRepository;
 
     @Override
     public DonorDTO registerDonor(DonorDTO donorDTO) {
@@ -32,8 +39,35 @@ public class DonorServiceImpl implements DonorService {
         }
 
         Donor donor = mapToEntity(donorDTO);
+
+        //System.out.println("donor age : ............"+donor.getDonorAge());
         donor = donorRepository.save(donor);
-        return mapToDTO(donor);
+
+        if(donor != null) {
+            System.out.println("Donor Registered Successfully");
+
+            DonorRequest donorRequest = new DonorRequest();
+
+            donorRequest.setDonorName(donor.getDonorName());
+            donorRequest.setBloodGroup(donor.getBloodGroup());
+            donorRequest.setContact(donor.getContactNumber());
+            donorRequest.setHospitalName(donor.getHospitalName());
+            donorRequest.setStatus(RequestStatus.PENDING);
+            donorRequest.setRequestDate(LocalDateTime.now());
+            donorRequestRepository.save(donorRequest);
+            System.out.println("Donor Requested for Blood Donation Successfully");
+
+            if (donorRequest != null) {
+                System.out.println("Donor Requested for Blood Donation Successfully");
+
+                return mapToDTO(donor);
+            } else {
+                throw new RuntimeException("Donor Request Failed");
+            }
+
+        }else{
+            throw new RuntimeException("Donor not registered.");
+        }
     }
 
     @Override

@@ -1,8 +1,14 @@
 package org.example.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import org.example.backend.enums.RequestStatus;
 
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "donor_requests")
+@Builder
 public class DonorRequest {
 
     @Id
@@ -15,13 +21,100 @@ public class DonorRequest {
     @Column(nullable = false)
     private String bloodGroup;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String contact;
 
     @Column(nullable = false)
-    private String hospital;
+    private String hospitalName;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RequestStatus status;
+
+    @Column(nullable = false)
+    private LocalDateTime requestDate;
+
+    public DonorRequest() {
+    }
+
+    public DonorRequest(Long id, String donorName, String bloodGroup, String contact, String hospitalName, RequestStatus status, LocalDateTime requestDate) {
+        this.id = id;
+        this.donorName = donorName;
+        this.bloodGroup = bloodGroup;
+        this.contact = contact;
+        this.hospitalName = hospitalName;
+        this.status = status;
+        this.requestDate = requestDate;
+    }
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDonorName() {
+        return donorName;
+    }
+
+    public void setDonorName(String donorName) {
+        this.donorName = donorName;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    @Override
+    public String toString() {
+        return "DonorRequest{" +
+                "id=" + id +
+                ", donorName='" + donorName + '\'' +
+                ", bloodGroup='" + bloodGroup + '\'' +
+                ", contact='" + contact + '\'' +
+                ", hospitalName='" + hospitalName + '\'' +
+                ", status=" + status +
+                ", requestDate=" + requestDate +
+                '}';
+    }
 }

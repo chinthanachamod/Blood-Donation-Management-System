@@ -265,9 +265,13 @@
                                     <td>${donor.donorName}</td>
                                     <td>${donor.age}</td>
                                     <td>${donor.bloodGroup}</td>
+                                    <td>${donor.gender}</td>
                                     <td>${donor.contactNumber}</td>
+                                    <td>${donor.district}</td>
                                     <td>${donor.email}</td>
+                                    <td>${donor.homeAddress}</td>
                                     <td>${donor.hospitalName}</td>
+                                    <td>${donor.lastDonationDate}</td>
                                     <td>
                                         <button class="btn btn-warning btn-sm" onclick="editDonor(${donor.id})">Edit</button>
                                         <button class="btn btn-danger btn-sm" onclick="deleteDonor(${donor.id})">Delete</button>
@@ -288,7 +292,7 @@
 
         let donor = {
             donorName: $("#donorName").val(),
-            age: $("#donorAge").val(),
+            donorAge: $("#donorAge").val(),
             bloodGroup: $("#bloodGroup").val(),
             gender: $("input[name='gender']:checked").val(),
             contactNumber: $("#contactNumber").val(),
@@ -299,13 +303,15 @@
             lastDonationDate: $("#lastDonationDate").val()
         };
 
+        //console.log(donor);
+
         $.ajax({
             url: `${BASE_URL}/register`,
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(donor),
             success: () => {
-                alert("Donor registered successfully.");
+                alert("Donor registered successfully...!");
                 getAllDonors();
                 $("#donorForm")[0].reset();
             },

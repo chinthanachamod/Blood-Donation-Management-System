@@ -21,9 +21,21 @@ public class PatientController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PatientDTO> registerPatient(@RequestBody PatientDTO patientDTO) {
+        /*System.out.println(patientDTO.getPatientName());
+        System.out.println(patientDTO.getAge());
+        System.out.println(patientDTO.getBloodGroup());
+        System.out.println(patientDTO.getGender());
+        System.out.println(patientDTO.getContactNumber());
+        System.out.println(patientDTO.getDistrict());
+        System.out.println(patientDTO.getHospitalName());
+        System.out.println(patientDTO.getEmail());
+        System.out.println(patientDTO.getHomeAddress());
+        System.out.println(patientDTO.getRequiredPints());
+        System.out.println(patientDTO.getUrgencyLevel());*/
         PatientDTO savedPatient = patientService.registerPatient(patientDTO);
         System.out.println("PatientDTO saved");
         return ResponseEntity.ok(savedPatient);
+        /*return null;*/
     }
 
     // http://localhost:8080/api/v1/patients/getAll
