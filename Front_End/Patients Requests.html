@@ -97,6 +97,41 @@
     </div>
 </div>
 
+<!-- Appointment Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="appointmentForm">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="appointmentModalLabel">Create Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="patientRequestId" name="patientRequestId">
+
+                    <div class="mb-3">
+                        <label for="appointmentDate" class="form-label">Appointment Date</label>
+                        <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="appointmentTime" class="form-label">Appointment Time</label>
+                        <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="appointmentNotes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="appointmentNotes" name="appointmentNotes" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Send Appointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="bg-dark text-white text-center py-3 mt-5">
     <div class="container">

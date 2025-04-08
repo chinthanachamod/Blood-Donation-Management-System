@@ -20,12 +20,13 @@ public class PatientRequestServiceImpl implements PatientRequestService {
     public PatientRequestDTO createRequest(PatientRequestDTO requestDTO) {
         // Convert DTO to Entity
         PatientRequest patientRequest = new PatientRequest();
-        patientRequest.setPatientName(requestDTO.getPatientName());
+        patientRequest.setPatientName(patientRequest.getPatientName());
         patientRequest.setBloodGroup(requestDTO.getBloodGroup());
         patientRequest.setRequestedPints(requestDTO.getRequestedPints());
         patientRequest.setHospital(requestDTO.getHospital());
         patientRequest.setContact(requestDTO.getContact());
-        patientRequest.setStatus("PENDING"); // Default status
+        patientRequest.setStatus("PENDING");  // Set default status to PENDING
+
 
         // Save entity in database
         PatientRequest savedRequest = patientRequestRepository.save(patientRequest);

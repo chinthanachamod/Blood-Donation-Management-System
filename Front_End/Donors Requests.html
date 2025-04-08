@@ -6,7 +6,6 @@
     <title>Donor Requests | Blood Donation System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
         .card {
             border-radius: 15px;
             background: rgba(255, 255, 255, 0.9);
@@ -16,21 +15,15 @@
             background-color: #dc3545;
             color: white;
         }
-
-        /* Ensure full-page height and proper structure */
         html, body {
             height: 100%;
             margin: 0;
             display: flex;
             flex-direction: column;
         }
-
-        /* Main content takes available space */
         .content {
             flex-grow: 1;
         }
-
-        /* Fixed footer at the bottom */
         footer {
             background: #343a40;
             color: white;
@@ -47,7 +40,6 @@
     <h1>Blood Donation Management System</h1>
     <p>"Connecting donors, hospitals, and patients for a better tomorrow..."</p>
 </section>
-
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -81,28 +73,16 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-
                 <tbody id="donorRequestsTable">
-                <!-- Data will be inserted dynamically -->
-                <!--<tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Accept</button>
-                        <button type="button" class="btn btn-danger">Deny</button>
-                    </td>
-                </tr>-->
+                <!-- Data will be inserted dynamically here -->
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Footer (Always at Bottom) -->
+<!-- Footer -->
 <footer>
     <div class="container">
         <p>&copy; 2025 Blood Donation Management System. All Rights Reserved.</p>
@@ -121,28 +101,27 @@
         loadDonorRequests();
     });
 
-
     function loadDonorRequests() {
         fetch("http://localhost:8080/api/v1/donor-requests/pending")
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById("donorRequestsTable");
-                tableBody.innerHTML = ""; // Clear previous entries
+                tableBody.innerHTML = ""; // Clear existing rows
 
                 data.forEach(request => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-                    <td>${request.id}</td>
-                    <td>${request.donorName}</td>
-                    <td>${request.bloodGroup}</td>
-                    <td>${request.contact}</td>
-                    <td>${request.hospital}</td>
-                    <td><span class="badge bg-warning">${request.status}</span></td>
-                    <td>
-                        <button class="btn btn-success btn-sm" onclick="acceptRequest(${request.id})">Accept</button>
-                        <button class="btn btn-danger btn-sm" onclick="rejectRequest(${request.id})">Reject</button>
-                    </td>
-                `;
+                        <td>${request.id}</td>
+                        <td>${request.donorName}</td>
+                        <td>${request.bloodGroup}</td>
+                        <td>${request.contactNumber}</td>
+                        <td>${request.hospitalName}</td>
+                        <td><span class="badge bg-warning">${request.status || 'Pending'}</span></td>
+                        <td>
+                            <button class="btn btn-success btn-sm" onclick="acceptRequest(${request.id})">Accept</button>
+                            <button class="btn btn-danger btn-sm" onclick="rejectRequest(${request.id})">Reject</button>
+                        </td>
+                    `;
                     tableBody.appendChild(row);
                 });
             })
@@ -154,7 +133,7 @@
             .then(response => response.json())
             .then(() => {
                 alert("Request accepted successfully!");
-                loadDonorRequests(); // Reload table
+                loadDonorRequests();
             })
             .catch(error => console.error("Error accepting request:", error));
     }
@@ -163,45 +142,11 @@
         fetch(`http://localhost:8080/api/v1/donor-requests/reject/${requestId}`, { method: "DELETE" })
             .then(() => {
                 alert("Request rejected successfully!");
-                loadDonorRequests(); // Reload table
+                loadDonorRequests();
             })
             .catch(error => console.error("Error rejecting request:", error));
     }
 </script>
-
-
-<!-- JavaScript for Donor Request Actions -->
-<!--<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        /*const donorRequests = [
-            { id: 1, name: "John Doe", bloodGroup: "A+", contact: "123456789", hospital: "City Hospital", status: "Pending" },
-            { id: 2, name: "Jane Smith", bloodGroup: "B-", contact: "987654321", hospital: "General Hospital", status: "Pending" }
-        ];*/
-
-        const tableBody = document.getElementById("donorRequestsTable");
-        donorRequests.forEach(request => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                    <td>${request.id}</td>
-                    <td>${request.name}</td>
-                    <td>${request.bloodGroup}</td>
-                    <td>${request.contact}</td>
-                    <td>${request.hospital}</td>
-                    <td id="status-${request.id}">${request.status}</td>
-                    <td>
-                        <button class="btn btn-success btn-sm" onclick="updateStatus(${request.id}, 'Accepted')">Accept</button>
-                        <button class="btn btn-danger btn-sm" onclick="updateStatus(${request.id}, 'Denied')">Deny</button>
-                    </td>
-                `;
-            tableBody.appendChild(row);
-        });
-    });
-
-    function updateStatus(requestId, status) {
-        document.getElementById(`status-${requestId}`).innerText = status;
-        alert(`Request ID ${requestId} has been ${status}`);
-    }
-</script>-->
 
 </body>
 </html>
