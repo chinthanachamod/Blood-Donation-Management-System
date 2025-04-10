@@ -10,22 +10,12 @@ public class DonorRequestDTO {
     private String donorName;
     private String bloodGroup;
     private String contact;
+    private String email;
     private String hospitalName;
     private RequestStatus status;
     private LocalDateTime requestDate;
 
-    public DonorRequestDTO() {
-    }
-
-    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contact, String hospitalName,
-                           RequestStatus status, LocalDateTime requestDate) {
-        this.id = id;
-        this.donorName = donorName;
-        this.bloodGroup = bloodGroup;
-        this.contact = contact;
-        this.hospitalName = hospitalName;
-        this.status = status;
-        this.requestDate = requestDate;
+    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contact, String email, String hospitalName, RequestStatus status, LocalDateTime requestDate) {
     }
 
     // Getters and Setters
@@ -62,6 +52,14 @@ public class DonorRequestDTO {
         this.contact = contact;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getHospitalName() {
         return hospitalName;
     }
@@ -95,6 +93,7 @@ public class DonorRequestDTO {
                 ", donorName='" + donorName + '\'' +
                 ", bloodGroup='" + bloodGroup + '\'' +
                 ", contact='" + contact + '\'' +
+                ", email='" + email + '\'' +
                 ", hospitalName='" + hospitalName + '\'' +
                 ", status=" + status +
                 ", requestDate=" + requestDate +
