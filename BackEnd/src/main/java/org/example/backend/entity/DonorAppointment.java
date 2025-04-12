@@ -19,7 +19,7 @@ public class DonorAppointment {
     private String hospitalName;
     private LocalDateTime appointmentDateTime;
 
-    private String status; // e.g., Confirmed, Pending
+    private String status; // e.g., "Accepted", "Rejected", "Pending"
 
     public DonorAppointment() {
     }

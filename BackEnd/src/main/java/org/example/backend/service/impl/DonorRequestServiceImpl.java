@@ -24,6 +24,7 @@ public class DonorRequestServiceImpl implements DonorRequestService {
         donorRequest.setDonorName(donorRequestDTO.getDonorName());
         donorRequest.setBloodGroup(donorRequestDTO.getBloodGroup());
         donorRequest.setContact(donorRequestDTO.getContact());
+        donorRequest.setEmail(donorRequestDTO.getEmail());
         donorRequest.setHospitalName(donorRequestDTO.getHospitalName());
         donorRequest.setStatus(RequestStatus.PENDING);
 
@@ -67,6 +68,7 @@ public class DonorRequestServiceImpl implements DonorRequestService {
                 donorRequest.getDonorName(),
                 donorRequest.getBloodGroup(),
                 donorRequest.getContact(),
+                donorRequest.getEmail(),
                 donorRequest.getHospitalName(),
                 donorRequest.getStatus(),
                 donorRequest.getRequestDate()

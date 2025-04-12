@@ -401,6 +401,36 @@
     // Initial load of donors
     getAllDonors();
 </script>
+<!--<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const donationDateInput = document.getElementById('lastDonationDate');
+        const genderInput = document.getElementById('gender');
+
+        form.addEventListener('submit', function (event) {
+            const gender = genderInput.value;
+            const selectedDate = new Date(donationDateInput.value);
+            const currentDate = new Date();
+
+            if (!donationDateInput.value || !gender) {
+                alert("Please select both gender and donation date.");
+                event.preventDefault();
+                return;
+            }
+
+            // Calculate next eligible date
+            let requiredGapMonths = gender === 'male' ? 3 : 4;
+            let nextEligibleDate = new Date(selectedDate);
+            nextEligibleDate.setMonth(selectedDate.getMonth() + requiredGapMonths);
+
+            if (currentDate < nextEligibleDate) {
+                alert(`You can donate blood again after ${requiredGapMonths} months from your last donation date.`);
+                event.preventDefault();
+            }
+        });
+    });
+</script>-->
+
 
 </body>
 </html>

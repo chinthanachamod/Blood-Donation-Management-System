@@ -1,8 +1,10 @@
 package org.example.backend.controller;
 
 import org.example.backend.dto.DonorAppointmentDTO;
+import org.example.backend.dto.DonorRequestDTO;
 import org.example.backend.service.DonorAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/donorAppointments")
+@CrossOrigin(origins = "*") // Allow frontend to access the API
 public class DonorAppointmentController {
 
     @Autowired
@@ -41,4 +44,11 @@ public class DonorAppointmentController {
         DonorAppointmentDTO appointmentDTO = donorAppointmentService.getAppointmentById(appointmentId);
         return ResponseEntity.ok(appointmentDTO);
     }
+
+    @PostMapping("/donorAppointments/fromRequest")
+    public ResponseEntity<DonorAppointmentDTO> createFromRequest(@RequestBody DonorRequestDTO requestDTO) {
+        DonorAppointmentDTO appointment = donorAppointmentService.createAppointmentFromRequest(requestDTO);
+        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
+    }
+
 }

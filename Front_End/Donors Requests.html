@@ -68,6 +68,7 @@
                     <th>Donor Name</th>
                     <th>Blood Group</th>
                     <th>Contact</th>
+                    <th>Email</th>
                     <th>Hospital</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -115,6 +116,7 @@
                         <td>${request.donorName}</td>
                         <td>${request.bloodGroup}</td>
                         <td>${request.contactNumber}</td>
+                        <td>${request.email}</td>
                         <td>${request.hospitalName}</td>
                         <td><span class="badge bg-warning">${request.status || 'Pending'}</span></td>
                         <td>
@@ -134,6 +136,8 @@
             .then(() => {
                 alert("Request accepted successfully!");
                 loadDonorRequests();
+                // Redirect to appointment details page after accepting
+                window.location.href = `/DonorAppointment.html?requestId=${requestId}`;
             })
             .catch(error => console.error("Error accepting request:", error));
     }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Appointment Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow p-4 rounded">
+        <h4 class="mb-4 text-center">Donor Appointment Details</h4>
+
+        <form id="appointmentForm">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Donor Name</label>
+                    <input type="text" class="form-control" id="donorName" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Donor Email</label>
+                    <input type="email" class="form-control" id="donorEmail" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Blood Group</label>
+                    <input type="text" class="form-control" id="bloodGroup" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="contactNumber" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Hospital</label>
+                    <input type="text" class="form-control" id="hospitalName" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Appointment Date</label>
+                    <input type="date" class="form-control" id="appointmentDate">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Appointment Time</label>
+                    <input type="time" class="form-control" id="appointmentTime">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-success" onclick="sendAppointment()">Send Appointment Email</button>
+            </div>
+        </form>
+
+        <div id="successMsg" class="alert alert-success mt-3 d-none" role="alert">
+            Appointment email sent successfully!
+        </div>
+    </div>
+</div>
+
+<script>
+    const appointmentId = 1; // Replace this with dynamic ID if needed
+
+    // Load existing appointment info
+    window.onload = () => {
+        fetch(`http://localhost:8080/api/v1/donorAppointments/${appointmentId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("donorName").value = data.donorName;
+                document.getElementById("donorEmail").value = data.donorEmail;
+                document.getElementById("bloodGroup").value = data.bloodGroup;
+                document.getElementById("contactNumber").value = data.contactNumber;
+                document.getElementById("hospitalName").value = data.hospitalName;
+
+                const dt = new Date(data.appointmentDateTime);
+                document.getElementById("appointmentDate").value = dt.toISOString().split("T")[0];
+                document.getElementById("appointmentTime").value = dt.toTimeString().slice(0, 5);
+            })
+            .catch(err => console.error("Error loading appointment:", err));
+    };
+
+    // Format to AM/PM
+    function formatAMPM(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${hours}:${minutes} ${ampm}`;
+    }
+
+    // Accept and send appointment
+    function sendAppointment() {
+        const date = document.getElementById("appointmentDate").value;
+        const time = document.getElementById("appointmentTime").value;
+
+        if (!date || !time) {
+            alert("Please select both date and time.");
+            return;
+        }
+
+        const formattedDateTime = new Date(`${date}T${time}`);
+        const formattedString = `${date} ${formatAMPM(formattedDateTime)}`;
+
+        console.log("Sending appointment for:", formattedString);
+
+        // Currently, backend doesn't accept new datetime – just triggering accept + email
+        fetch(`http://localhost:8080/api/v1/donorAppointments/accept/${appointmentId}`, {
+            method: 'PUT'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("successMsg").classList.remove("d-none");
+                } else {
+                    alert("Failed to send appointment.");
+                }
+            })
+            .catch(err => console.error("Error accepting appointment:", err));
+    }
+</script>
+
+</body>
+</html>

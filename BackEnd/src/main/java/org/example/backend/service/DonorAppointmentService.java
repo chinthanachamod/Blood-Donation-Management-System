@@ -1,6 +1,7 @@
 package org.example.backend.service;
 
 import org.example.backend.dto.DonorAppointmentDTO;
+import org.example.backend.dto.DonorRequestDTO;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface DonorAppointmentService {
 
     // Method to get appointment details by appointment ID
     DonorAppointmentDTO getAppointmentById(Long appointmentId);
+
+    // Method to create a new appointment from a donor request
+    DonorAppointmentDTO createAppointmentFromRequest(DonorRequestDTO requestDTO);
 }

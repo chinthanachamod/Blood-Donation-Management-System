@@ -24,6 +24,9 @@ public class DonorRequest {
     @Column(nullable = false, unique = true)
     private String contact;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false)
     private String hospitalName;
 
@@ -37,11 +40,13 @@ public class DonorRequest {
     public DonorRequest() {
     }
 
-    public DonorRequest(Long id, String donorName, String bloodGroup, String contact, String hospitalName, RequestStatus status, LocalDateTime requestDate) {
+    public DonorRequest(Long id, String donorName, String bloodGroup, String contact, String email,
+                        String hospitalName, RequestStatus status, LocalDateTime requestDate) {
         this.id = id;
         this.donorName = donorName;
         this.bloodGroup = bloodGroup;
         this.contact = contact;
+        this.email = email;
         this.hospitalName = hospitalName;
         this.status = status;
         this.requestDate = requestDate;
@@ -81,6 +86,14 @@ public class DonorRequest {
         this.contact = contact;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getHospitalName() {
         return hospitalName;
     }
@@ -105,6 +118,8 @@ public class DonorRequest {
         this.requestDate = requestDate;
     }
 
+    // toString
+
     @Override
     public String toString() {
         return "DonorRequest{" +
@@ -112,6 +127,7 @@ public class DonorRequest {
                 ", donorName='" + donorName + '\'' +
                 ", bloodGroup='" + bloodGroup + '\'' +
                 ", contact='" + contact + '\'' +
+                ", email='" + email + '\'' +
                 ", hospitalName='" + hospitalName + '\'' +
                 ", status=" + status +
                 ", requestDate=" + requestDate +
