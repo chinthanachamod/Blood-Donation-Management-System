@@ -35,6 +35,7 @@ public class DonorRequestServiceImpl implements DonorRequestService {
     @Override
     public List<DonorRequestDTO> getAllDonorRequestsByStatus(RequestStatus status) {
         List<DonorRequest> requests = donorRequestRepository.findByStatus(status);
+        System.out.println(requests);
         return requests.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 

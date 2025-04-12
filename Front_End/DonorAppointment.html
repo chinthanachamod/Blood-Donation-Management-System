@@ -69,7 +69,7 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById("donorName").value = data.donorName;
-                document.getElementById("donorEmail").value = data.donorEmail;
+                document.getElementById("donorEmail").value = data.email;
                 document.getElementById("bloodGroup").value = data.bloodGroup;
                 document.getElementById("contactNumber").value = data.contactNumber;
                 document.getElementById("hospitalName").value = data.hospitalName;

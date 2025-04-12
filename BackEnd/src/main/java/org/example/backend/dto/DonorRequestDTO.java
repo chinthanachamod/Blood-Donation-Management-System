@@ -15,8 +15,19 @@ public class DonorRequestDTO {
     private RequestStatus status;
     private LocalDateTime requestDate;
 
-    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contact, String email, String hospitalName, RequestStatus status, LocalDateTime requestDate) {
+    public DonorRequestDTO(Long id, String donorName, String bloodGroup, String contact,
+                           String email, String hospitalName, RequestStatus status, LocalDateTime requestDate) {
+        this.id = id;
+        this.donorName = donorName;
+        this.bloodGroup = bloodGroup;
+        this.contact = contact;
+        this.email = email;
+        this.hospitalName = hospitalName;
+        this.status = status;
+        this.requestDate = requestDate;
     }
+
+
 
     // Getters and Setters
 

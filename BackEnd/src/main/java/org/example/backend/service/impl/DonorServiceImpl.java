@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 @Transactional
 public class DonorServiceImpl implements DonorService {
@@ -52,6 +51,7 @@ public class DonorServiceImpl implements DonorService {
             donorRequest.setBloodGroup(donor.getBloodGroup());
             donorRequest.setContact(donor.getContactNumber());
             donorRequest.setHospitalName(donor.getHospitalName());
+            donorRequest.setEmail(donor.getEmail());
             donorRequest.setStatus(RequestStatus.PENDING);
             donorRequest.setRequestDate(LocalDateTime.now());
             donorRequestRepository.save(donorRequest);
