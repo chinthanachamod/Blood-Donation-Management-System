@@ -53,16 +53,21 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/v1/auth/authenticate",
-                                "/api/v1/user/register",
-                                "/api/v1/user/login",
-                                "/api/v1/patients/register",
-                                "/api/v1/donors/**",
-                                "/api/v1/donor-requests/**",
-                                "/api/v1/patients/**",
-                                "/api/v1/auth/refreshToken",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
+                                "api/v1/**",
+                                "/accepted/**",
+
+//                                "/api/v1/auth/authenticate",
+//                                "/api/v1/user/register",
+//                                "/api/v1/user/login",
+//                                "/api/v1/patients/register",
+//                                "/api/v1/donors/**",
+//                                "/api/v1/donor-requests/**",
+//                                "api/v1/donor-requests/accepted/**",
+//                                "api/v1/donorAppointments/**",
+//                                "/api/v1/patients/**",
+//                                "/api/v1/auth/refreshToken",
+//                                "/v3/api-docs/**",
+//                                "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )

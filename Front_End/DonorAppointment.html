@@ -60,18 +60,92 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    const appointmentId = 1; // Replace this with dynamic ID if needed
+    $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const requestId = urlParams.get('requestId');
+
+        // Load existing appointment info via AJAX
+        $.ajax({
+            url: `http://localhost:8080/api/v1/donor-requests/accepted/${requestId}`,
+            type: 'PUT',
+            success: function (data) {
+                $('#donorName').val(data.donorName);
+                $('#donorEmail').val(data.email);
+                $('#bloodGroup').val(data.bloodGroup);
+                $('#contactNumber').val(data.contact);
+                $('#hospitalName').val(data.hospitalName);
+
+                const dt = new Date(data.appointmentDateTime);
+                $('#appointmentDate').val(dt.toISOString().split("T")[0]);
+                $('#appointmentTime').val(dt.toTimeString().slice(0, 5));
+            },
+            error: function (err) {
+                console.error("Error loading appointment:", err);
+            }
+        });
+
+        // Send appointment when button is clicked
+        $('#sendAppointmentBtn').on('click', function () {
+            const date = $('#appointmentDate').val();
+            const time = $('#appointmentTime').val();
+
+            if (!date || !time) {
+                alert("Please select both date and time.");
+                return;
+            }
+
+            const formattedDateTime = new Date(`${date}T${time}`);
+            const formattedString = `${date} ${formatAMPM(formattedDateTime)}`;
+
+            console.log("Sending appointment for:", formattedString);
+
+            // Accept appointment and trigger email
+            $.ajax({
+                url: `http://localhost:8080/api/v1/donorAppointments/accept/${requestId}`,
+                type: 'PUT',
+                success: function () {
+                    $('#successMsg').removeClass('d-none');
+                },
+                error: function (err) {
+                    console.error("Error accepting appointment:", err);
+                    alert("Failed to send appointment.");
+                }
+            });
+        });
+
+        // Helper function to format time as AM/PM
+        function formatAMPM(date) {
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            return `${hours}:${minutes} ${ampm}`;
+        }
+    });
+</script>
+
+<!--<script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestId = urlParams.get('requestId');
+
 
     // Load existing appointment info
     window.onload = () => {
-        fetch(`http://localhost:8080/api/v1/donorAppointments/${appointmentId}`)
+
+
+        console.log(requestId);
+        fetch(`http://localhost:8080/api/v1/donor-requests/accepted/${requestId}`, { method: "PUT" })
             .then(response => response.json())
             .then(data => {
                 document.getElementById("donorName").value = data.donorName;
                 document.getElementById("donorEmail").value = data.email;
                 document.getElementById("bloodGroup").value = data.bloodGroup;
-                document.getElementById("contactNumber").value = data.contactNumber;
+                document.getElementById("contactNumber").value = data.contact;
                 document.getElementById("hospitalName").value = data.hospitalName;
 
                 const dt = new Date(data.appointmentDateTime);
@@ -107,7 +181,7 @@
         console.log("Sending appointment for:", formattedString);
 
         // Currently, backend doesn't accept new datetime – just triggering accept + email
-        fetch(`http://localhost:8080/api/v1/donorAppointments/accept/${appointmentId}`, {
+        fetch(`http://localhost:8080/api/v1/donorAppointments/accept/${requestId}`, {
             method: 'PUT'
         })
             .then(response => {
@@ -119,7 +193,7 @@
             })
             .catch(err => console.error("Error accepting appointment:", err));
     }
-</script>
+</script>-->
 
 </body>
 </html>

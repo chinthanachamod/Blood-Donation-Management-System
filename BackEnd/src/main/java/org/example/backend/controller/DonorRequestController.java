@@ -4,6 +4,7 @@ import org.example.backend.dto.DonorRequestDTO;
 import org.example.backend.enums.RequestStatus;
 import org.example.backend.service.DonorRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +33,16 @@ public class DonorRequestController {
     }
 
     // Accept a donor request
-    @PutMapping("/accept/{requestId}")
+    @PutMapping("/accepted/{requestId}")
     public ResponseEntity<DonorRequestDTO> acceptDonorRequest(@PathVariable Long requestId) {
-        DonorRequestDTO acceptedRequest = donorRequestService.acceptDonorRequest(requestId);
-        return ResponseEntity.ok(acceptedRequest);
+        try{
+            System.out.println("called");
+            DonorRequestDTO acceptedRequest = donorRequestService.acceptDonorRequest(requestId);
+            return ResponseEntity.ok(acceptedRequest);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // Reject a donor request

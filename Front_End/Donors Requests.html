@@ -96,8 +96,77 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        loadDonorRequests();
+    });
+
+    function loadDonorRequests() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/donor-requests/pending",
+            type: "GET",
+            success: function (data) {
+                const tableBody = $("#donorRequestsTable");
+                tableBody.empty(); // Clear existing rows
+
+                data.forEach(function (request) {
+                    const row = `
+                        <tr>
+                            <td>${request.id}</td>
+                            <td>${request.donorName}</td>
+                            <td>${request.bloodGroup}</td>
+                            <td>${request.contactNumber}</td>
+                            <td>${request.email}</td>
+                            <td>${request.hospitalName}</td>
+                            <td><span class="badge bg-warning">${request.status || 'Pending'}</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="acceptRequest(${request.id})">Accept</button>
+                                <button class="btn btn-danger btn-sm" onclick="rejectRequest(${request.id})">Reject</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.append(row);
+                });
+            },
+            error: function (err) {
+                console.error("Error loading requests:", err);
+            }
+        });
+    }
+
+    function acceptRequest(requestId) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/donor-requests/accepted/${requestId}`,
+            type: "PUT",
+            success: function () {
+                alert("Request accepted successfully!");
+                loadDonorRequests();
+                window.location.href = `/DonorAppointment.html?requestId=${requestId}`;
+            },
+            error: function (err) {
+                console.error("Error accepting request:", err);
+            }
+        });
+    }
+
+    function rejectRequest(requestId) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/donor-requests/reject/${requestId}`,
+            type: "DELETE",
+            success: function () {
+                alert("Request rejected successfully!");
+                loadDonorRequests();
+            },
+            error: function (err) {
+                console.error("Error rejecting request:", err);
+            }
+        });
+    }
+</script>
+
+<!--<script>
     document.addEventListener("DOMContentLoaded", function () {
         loadDonorRequests();
     });
@@ -131,11 +200,12 @@
     }
 
     function acceptRequest(requestId) {
-        fetch(`http://localhost:8080/api/v1/donor-requests/accept/${requestId}`, { method: "PUT" })
+        fetch(`http://localhost:8080/api/v1/donor-requests/accepted/${requestId}`, { method: "PUT" })
             .then(response => response.json())
             .then(() => {
                 alert("Request accepted successfully!");
                 loadDonorRequests();
+                // Store the appointment ID for redirection
                 // Redirect to appointment details page after accepting
                 window.location.href = `/DonorAppointment.html?requestId=${requestId}`;
             })
@@ -150,7 +220,7 @@
             })
             .catch(error => console.error("Error rejecting request:", error));
     }
-</script>
+</script>-->
 
 </body>
 </html>

@@ -27,6 +27,7 @@ public class DonorAppointmentController {
     // Accept a donor appointment
     @PutMapping("/accept/{appointmentId}")
     public ResponseEntity<DonorAppointmentDTO> acceptAppointment(@PathVariable Long appointmentId) {
+        //System.out.println("Acceped");
         DonorAppointmentDTO appointmentDTO = donorAppointmentService.acceptAppointment(appointmentId);
         return ResponseEntity.ok(appointmentDTO);
     }
@@ -41,8 +42,13 @@ public class DonorAppointmentController {
     // Get a specific donor appointment by ID
     @GetMapping("/{appointmentId}")
     public ResponseEntity<DonorAppointmentDTO> getAppointmentById(@PathVariable Long appointmentId) {
-        DonorAppointmentDTO appointmentDTO = donorAppointmentService.getAppointmentById(appointmentId);
-        return ResponseEntity.ok(appointmentDTO);
+        try{
+            DonorAppointmentDTO appointmentDTO = donorAppointmentService.getAppointmentById(appointmentId);
+            return ResponseEntity.ok(appointmentDTO);
+        }catch(RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("/donorAppointments/fromRequest")
@@ -50,5 +56,6 @@ public class DonorAppointmentController {
         DonorAppointmentDTO appointment = donorAppointmentService.createAppointmentFromRequest(requestDTO);
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
+
 
 }
