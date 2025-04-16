@@ -91,7 +91,7 @@ HTML, CSS, Bootstrap
 RESTful API
 
 ## Credits
-Developed by: Chinthana Chamod For the 2nd Semester Final Project submission
+Developed by : Chinthana Chamod For the 2nd Semester Final Project submission
 
 ## License
 This project is for educational purposes. You are free to use it with attribution.
