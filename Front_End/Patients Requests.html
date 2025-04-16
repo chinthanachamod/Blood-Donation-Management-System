@@ -15,17 +15,30 @@
             background-color: #dc3545;
             color: white;
         }
-        .action-btns button {
-            margin: 2px;
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex-grow: 1;
+        }
+        footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
 <!-- Hero Section -->
-<section class="bg-danger text-white text-center py-4">
+<section class="bg-danger text-white text-center py-5">
     <h1>Blood Donation Management System</h1>
-    <p>"Manage patient blood requests efficiently."</p>
+    <p>"Saving lives, one drop at a time."</p>
 </section>
 
 <!-- Navbar -->
@@ -43,97 +56,36 @@
     </div>
 </nav>
 
-<!-- Dashboard Content -->
-<div class="container mt-4">
-    <div class="card p-4">
-        <h5 class="card-title text-center">Patient Blood Requests</h5>
-        <table class="table table-bordered text-center">
-            <thead>
-            <tr>
-                <th>Patient Name</th>
-                <th>Blood Group</th>
-                <th>Requested Pints</th>
-                <th>Hospital</th>
-                <th>Contact</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!--<tr>
-                <td>John Doe</td>
-                <td>A+</td>
-                <td>2</td>
-                <td>General Hospital</td>
-                <td>+94 77 123 4567</td>
-                <td class="action-btns">
-                    <button class="btn btn-success btn-sm">Accept</button>
-                    <button class="btn btn-danger btn-sm">Deny</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Jane Smith</td>
-                <td>O-</td>
-                <td>1</td>
-                <td>City Hospital</td>
-                <td>+94 76 987 6543</td>
-                <td class="action-btns">
-                    <button class="btn btn-success btn-sm">Accept</button>
-                    <button class="btn btn-danger btn-sm">Deny</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Michael Brown</td>
-                <td>B-</td>
-                <td>3</td>
-                <td>National Hospital</td>
-                <td>+94 71 456 7890</td>
-                <td class="action-btns">
-                    <button class="btn btn-success btn-sm">Accept</button>
-                    <button class="btn btn-danger btn-sm">Deny</button>
-                </td>
-            </tr>-->
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Appointment Modal -->
-<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="appointmentForm">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="appointmentModalLabel">Create Appointment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="patientRequestId" name="patientRequestId">
-
-                    <div class="mb-3">
-                        <label for="appointmentDate" class="form-label">Appointment Date</label>
-                        <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="appointmentTime" class="form-label">Appointment Time</label>
-                        <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="appointmentNotes" class="form-label">Notes</label>
-                        <textarea class="form-control" id="appointmentNotes" name="appointmentNotes" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Send Appointment</button>
-                </div>
-            </form>
+<!-- Main Content -->
+<div class="container mt-4 content">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title text-center">Pending Patient Requests</h5>
+            <table class="table table-bordered table-striped text-center">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Patient Name</th>
+                    <th>Blood Group</th>
+                    <th>Requested Pints</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Hospital</th>
+                    <th>Urgency</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="patientRequestsTable">
+                <!-- Dynamic data will be inserted here -->
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 <!-- Footer -->
-<footer class="bg-dark text-white text-center py-3 mt-5">
+<footer>
     <div class="container">
         <p>&copy; 2025 Blood Donation Management System. All Rights Reserved.</p>
         <p>
@@ -145,5 +97,77 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        loadPatientRequests();
+    });
+
+    function loadPatientRequests() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/patient-requests/pending",
+            type: "GET",
+            success: function (data) {
+                const tableBody = $("#patientRequestsTable");
+                tableBody.empty(); // Clear existing rows
+
+                data.forEach(function (request) {
+                    const row = `
+                        <tr>
+                            <td>${request.id}</td>
+                            <td>${request.patientName}</td>
+                            <td>${request.bloodGroup}</td>
+                            <td>${request.requestedPints}</td>
+                            <td>${request.email}</td>
+                            <td>${request.contactNumber}</td>
+                            <td>${request.hospitalName}</td>
+                            <td>${request.urgencyLevel}</td>
+                            <td><span class="badge bg-warning">${request.status || 'Pending'}</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="acceptRequest(${request.id})">Accept</button>
+                                <button class="btn btn-danger btn-sm" onclick="rejectRequest(${request.id})">Reject</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.append(row);
+                });
+            },
+            error: function (err) {
+                console.error("Error loading patient requests:", err);
+            }
+        });
+    }
+
+    function acceptRequest(requestId) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/patient-requests/accept/${requestId}`,
+            type: "PUT",
+            success: function () {
+                alert("Patient request accepted!");
+                loadPatientRequests();
+                window.location.href = `/PatientAppointment.html?requestId=${requestId}`;
+            },
+            error: function (err) {
+                console.error("Error accepting request:", err);
+            }
+        });
+    }
+
+    function rejectRequest(requestId) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/patient-requests/reject/${requestId}`,
+            type: "DELETE",
+            success: function () {
+                alert("Patient request rejected.");
+                loadPatientRequests();
+            },
+            error: function (err) {
+                console.error("Error rejecting request:", err);
+            }
+        });
+    }
+</script>
+
 </body>
 </html>

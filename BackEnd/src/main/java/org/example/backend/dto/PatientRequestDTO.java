@@ -6,21 +6,23 @@ public class PatientRequestDTO {
     private String patientName;
     private String bloodGroup;
     private int requestedPints;
-    private String hospital;
+    private String email;
     private String contact;
+    private String urgencyLevel; // e.g., "High", "Medium", "Low"
     private String status; // "PENDING", "ACCEPTED", "DENIED"
 
     public PatientRequestDTO() {
     }
 
-    public PatientRequestDTO(Long id, String patientName, String bloodGroup, int requestedPints, String hospital,
-                             String contact, String status) {
+    public PatientRequestDTO(Long id, String patientName, String bloodGroup, int requestedPints, String email,
+                             String contact, String urgencyLevel, String status) {
         this.id = id;
         this.patientName = patientName;
         this.bloodGroup = bloodGroup;
         this.requestedPints = requestedPints;
-        this.hospital = hospital;
+        this.email = email;
         this.contact = contact;
+        this.urgencyLevel = urgencyLevel;
         this.status = status;
     }
 
@@ -58,12 +60,12 @@ public class PatientRequestDTO {
         this.requestedPints = requestedPints;
     }
 
-    public String getHospital() {
-        return hospital;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHospital(String hospital) {
-        this.hospital = hospital;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContact() {
@@ -74,6 +76,14 @@ public class PatientRequestDTO {
         this.contact = contact;
     }
 
+    public String getUrgencyLevel() {
+        return urgencyLevel;
+    }
+
+    public void setUrgencyLevel(String urgencyLevel) {
+        this.urgencyLevel = urgencyLevel;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -82,7 +92,7 @@ public class PatientRequestDTO {
         this.status = status;
     }
 
-    // to String
+    // toString
 
     @Override
     public String toString() {
@@ -91,8 +101,9 @@ public class PatientRequestDTO {
                 ", patientName='" + patientName + '\'' +
                 ", bloodGroup='" + bloodGroup + '\'' +
                 ", requestedPints=" + requestedPints +
-                ", hospital='" + hospital + '\'' +
+                ", email='" + email + '\'' +
                 ", contact='" + contact + '\'' +
+                ", urgencyLevel='" + urgencyLevel + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

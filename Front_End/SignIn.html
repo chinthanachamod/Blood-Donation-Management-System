@@ -107,7 +107,7 @@
                 }),
                 success: function (response) {
                     console.log("Login successful", response);
-                    alert("Login successful");
+                    alert("Login successful...!");
                     localStorage.setItem("token", response.data.token);
                     if (response.data.role === "ADMIN") {
                         window.location.href = "../Front_End/Hospital Dashboard.html"; // Change to actual dashboard page
@@ -120,7 +120,7 @@
 
                 error: function (xhr, status, error) {
                     console.error("Login failed", xhr.responseText);
-                    alert("Login failed: " + xhr.responseText);
+                    alert("Login failed : " + xhr.responseText);
                 }
             });
         });

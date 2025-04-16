@@ -1,6 +1,6 @@
 package org.example.backend.dto;
 
-import org.example.backend.entity.Role;
+import org.example.backend.enums.Role;
 import org.springframework.stereotype.Component;
 
 

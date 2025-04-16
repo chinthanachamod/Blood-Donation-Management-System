@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.example.backend.dto.AuthDTO;
 import org.example.backend.dto.ResponseDTO;
 import org.example.backend.dto.UserDTO;
-import org.example.backend.entity.Role;
+import org.example.backend.enums.Role;
 import org.example.backend.service.UserService;
 import org.example.backend.util.JwtUtil;
 import org.example.backend.util.VarList;

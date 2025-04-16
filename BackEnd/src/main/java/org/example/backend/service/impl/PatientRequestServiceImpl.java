@@ -23,8 +23,9 @@ public class PatientRequestServiceImpl implements PatientRequestService {
         patientRequest.setPatientName(patientRequest.getPatientName());
         patientRequest.setBloodGroup(requestDTO.getBloodGroup());
         patientRequest.setRequestedPints(requestDTO.getRequestedPints());
-        patientRequest.setHospital(requestDTO.getHospital());
+        patientRequest.setEmail(requestDTO.getEmail());
         patientRequest.setContact(requestDTO.getContact());
+        patientRequest.setUrgencyLevel(requestDTO.getUrgencyLevel());
         patientRequest.setStatus("PENDING");  // Set default status to PENDING
 
 
@@ -59,7 +60,7 @@ public class PatientRequestServiceImpl implements PatientRequestService {
     public void denyRequest(Long requestId) {
         PatientRequest request = patientRequestRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Patient Request not found"));
-        request.setStatus("DENIED");
+        request.setStatus("REJECTED");
         patientRequestRepository.save(request);
     }
 
@@ -70,8 +71,9 @@ public class PatientRequestServiceImpl implements PatientRequestService {
         dto.setPatientName(patientRequest.getPatientName());
         dto.setBloodGroup(patientRequest.getBloodGroup());
         dto.setRequestedPints(patientRequest.getRequestedPints());
-        dto.setHospital(patientRequest.getHospital());
+        dto.setEmail(patientRequest.getEmail());
         dto.setContact(patientRequest.getContact());
+        dto.setUrgencyLevel(patientRequest.getUrgencyLevel());
         dto.setStatus(patientRequest.getStatus());
         return dto;
     }

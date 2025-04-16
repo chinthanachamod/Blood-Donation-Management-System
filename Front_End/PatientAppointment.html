@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Donor Appointment Details</title>
+    <title>Patient Appointment Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
 <div class="container mt-5">
     <div class="card shadow p-4 rounded">
-        <h4 class="mb-4 text-center">Donor Appointment Details</h4>
+        <h4 class="mb-4 text-center">Patient Appointment Details</h4>
 
         <form id="appointmentForm">
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label class="form-label">Donor Name</label>
-                    <input type="text" class="form-control" id="donorName" readonly>
+                    <label class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" id="patientName" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Donor Email</label>
-                    <input type="email" class="form-control" id="donorEmail" readonly>
+                    <label class="form-label">Patient Email</label>
+                    <input type="email" class="form-control" id="patientEmail" readonly>
                 </div>
             </div>
 
@@ -29,12 +29,12 @@
                     <input type="text" class="form-control" id="bloodGroup" readonly>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Contact Number</label>
-                    <input type="text" class="form-control" id="contactNumber" readonly>
+                    <label class="form-label">Pints Required</label>
+                    <input type="text" class="form-control" id="requestedPints" readonly>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Hospital</label>
-                    <input type="text" class="form-control" id="hospitalName" readonly>
+                    <label class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="contactNumber" readonly>
                 </div>
             </div>
 
@@ -61,33 +61,26 @@
 </div>
 
 <script>
-
     const urlParams = new URLSearchParams(window.location.search);
     const requestId = urlParams.get('requestId');
 
-
-    // Load existing appointment info
     window.onload = () => {
-
-
-        console.log(requestId);
-        fetch(`http://localhost:8080/api/v1/donor-requests/accepted/${requestId}`, { method: "PUT" })
+        fetch(`http://localhost:8080/api/v1/patient-requests/accepted/${requestId}`, { method: "PUT" })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("donorName").value = data.donorName;
-                document.getElementById("donorEmail").value = data.email;
+                document.getElementById("patientName").value = data.patientName;
+                document.getElementById("patientEmail").value = data.email;
                 document.getElementById("bloodGroup").value = data.bloodGroup;
-                document.getElementById("contactNumber").value = data.contact;
-                document.getElementById("hospitalName").value = data.hospitalName;
+                document.getElementById("requestedPints").value = data.requestedPints;
+                document.getElementById("contactNumber").value = data.contactNumber;
 
                 const dt = new Date(data.appointmentDateTime);
                 document.getElementById("appointmentDate").value = dt.toISOString().split("T")[0];
                 document.getElementById("appointmentTime").value = dt.toTimeString().slice(0, 5);
             })
-            .catch(err => console.error("Error loading appointment:", err));
+            .catch(err => console.error("Error loading patient data:", err));
     };
 
-    // Format to AM/PM
     function formatAMPM(date) {
         let hours = date.getHours();
         let minutes = date.getMinutes();
@@ -97,7 +90,6 @@
         return `${hours}:${minutes} ${ampm}`;
     }
 
-    // Accept and send appointment
     function sendAppointment() {
         const date = document.getElementById("appointmentDate").value;
         const time = document.getElementById("appointmentTime").value;
@@ -109,21 +101,19 @@
 
         const formattedDateTime = new Date(`${date}T${time}`);
         const formattedString = `${date} ${formatAMPM(formattedDateTime)}`;
+        console.log("Sending patient appointment for:", formattedString);
 
-        console.log("Sending appointment for:", formattedString);
-
-        // Currently, backend doesn't accept new datetime – just triggering accept + email
-        fetch(`http://localhost:8080/api/v1/donorAppointments/accept/${requestId}`, {
+        fetch(`http://localhost:8080/api/v1/patientAppointments/accept/${requestId}`, {
             method: 'PUT'
         })
             .then(response => {
                 if (response.ok) {
                     document.getElementById("successMsg").classList.remove("d-none");
                 } else {
-                    alert("Failed to send appointment...!");
+                    alert("Failed to send appointment.");
                 }
             })
-            .catch(err => console.error("Error accepting appointment:", err));
+            .catch(err => console.error("Error sending appointment:", err));
     }
 </script>
 
