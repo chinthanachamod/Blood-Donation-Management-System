@@ -39,7 +39,7 @@ This system ensures that patients can request the required blood group easily, a
 
 ![image](https://github.com/user-attachments/assets/881c3da8-cb31-4c00-814f-c405aa670464)
 
-* The patient requests and patient appointments pages appear the same as on the donor side...
+* The "patient requests" and "patient appointments" pages appear the same as on the donor side...
 
 
 ## Setup Instructions
