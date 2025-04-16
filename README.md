@@ -46,10 +46,10 @@ This system ensures that patients can request the required blood group easily, a
 
 ### Prerequisites
 
-Java 17+
-Maven
-MySQL Server
-IntelliJ IDEA or any preferred IDE 
+* Java 17+
+* Maven
+* MySQL Server
+* IntelliJ IDEA or any preferred IDE 
 
 ### Backend Setup (Spring Boot)
 1. Clone the Repository - https://github.com/chinthanachamod/Blood-Donation-Management-System
