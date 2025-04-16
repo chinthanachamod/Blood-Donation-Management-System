@@ -12,30 +12,38 @@ This system ensures that patients can request the required blood group easily, a
 
 ## Screenshots
 
-1. Home Page
+1. SignIn page
+   
+![image](https://github.com/user-attachments/assets/2902447f-cd14-4d9d-b513-bc7298745181)
+
+2. SignUp Page
+
+![image](https://github.com/user-attachments/assets/2dfd39a5-b02f-4f65-8bcf-51f46bb76b62)
+   
+3. Home Page
    
 ![image](https://github.com/user-attachments/assets/edba3fd0-c698-49e9-b545-6c0d5504d144)
 ![image](https://github.com/user-attachments/assets/58e7aa9f-da3f-47c5-b52f-52752c1a6563)
 
-2. Donor Dashboard
+4. Donor Dashboard
 
 ![image](https://github.com/user-attachments/assets/132f134a-1e7e-4435-953e-5862f14dbbf9)
 ![image](https://github.com/user-attachments/assets/6734825f-5160-4754-b196-ce3553d74331)
 
-3. Patient Dashboard
+5. Patient Dashboard
 
 ![image](https://github.com/user-attachments/assets/42f699a8-87a9-4740-8701-80316087a8c4)
 ![image](https://github.com/user-attachments/assets/13d2e41a-b164-4419-b17b-9871f05e2736)
 
-4. Hospital Dashboard
+6. Hospital Dashboard
 
 ![image](https://github.com/user-attachments/assets/6bddcfa6-d334-49fc-ae5d-91777b3d88dd)
 
-5. Donor Requests
+7. Donor Requests
 
 ![image](https://github.com/user-attachments/assets/8ee0bc2a-b5fc-4fd1-bbf5-87e638b61a62)
 
-6. Donor Appointment
+8. Donor Appointment
 
 ![image](https://github.com/user-attachments/assets/881c3da8-cb31-4c00-814f-c405aa670464)
 
