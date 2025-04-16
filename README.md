@@ -58,10 +58,10 @@ This system ensures that patients can request the required blood group easily, a
 Create a MySQL database named : blood_donation_ms
 Update application.properties : 
 
-spring.datasource.url=jdbc:mysql://localhost:3306/blood_donation_db
-spring.datasource.username=yourUsername
-spring.datasource.password=yourPassword
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+1. spring.datasource.url=jdbc:mysql://localhost:3306/blood_donation_db
+2. spring.datasource.username=yourUsername
+3. spring.datasource.password=yourPassword
+4. spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    
 4. Run the Backend Application
      mvn spring-boot:run  (The backend will start at: http://localhost:8080)
