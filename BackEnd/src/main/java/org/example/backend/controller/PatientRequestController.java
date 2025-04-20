@@ -24,7 +24,7 @@ public class PatientRequestController {
     }
 
     // Get all patient requests
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public ResponseEntity<List<PatientRequestDTO>> getAllRequests() {
         List<PatientRequestDTO> requests = patientRequestService.getAllRequests();
         return ResponseEntity.ok(requests);

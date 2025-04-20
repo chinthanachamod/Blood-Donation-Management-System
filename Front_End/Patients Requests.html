@@ -111,7 +111,7 @@
 
     function loadPatientRequests() {
         $.ajax({
-            url: "http://localhost:8080/api/v1/patient-requests/pending",
+            url: "http://localhost:8080/api/v1/patient-requests/getAll",
             type: "GET",
             success: function (data) {
                 const tableBody = $("#patientRequestsTable");
