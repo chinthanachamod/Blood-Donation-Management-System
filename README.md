@@ -80,7 +80,7 @@ Update application.properties :
 3. Optionally serve using Live Server (VS Code) or a local server tool for better integration.
 
 ## Demo Video
-Watch the complete walkthrough of the project : ... 
+Watch the complete walkthrough of the project : https://youtu.be/OJ0JZV-H3kc
 
 ## Technologies Used
 
